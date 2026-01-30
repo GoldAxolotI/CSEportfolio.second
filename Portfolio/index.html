@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* slate-900 */
+            color: #e2e8f0; /* slate-200 */
+            overflow-x: hidden;
+        }
+
+        /* Syntax Highlighting Mock */
+        pre.code-block {
+            padding: 1.5rem;
+            margin: 0;
+            overflow: auto;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            background-color: #030712;
+            color: #d1d5db;
+            font-family: 'Fira Code', monospace;
+            border-radius: 0.5rem;
+        }
+
+        /* Animations replacing Framer Motion */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-enter {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Aurora Background Animations */
+        @keyframes blob1-anim {
+            0%, 100% { transform: translate(0px, 0px); }
+            50% { transform: translate(100px, 50px); }
+        }
+        @keyframes blob2-anim {
+            0%, 100% { transform: translate(0px, 0px); }
+            50% { transform: translate(-100px, -50px); }
+        }
+
+        .blob-1 {
+            animation: blob1-anim 20s infinite ease-in-out alternate;
+        }
+        .blob-2 {
+            animation: blob2-anim 25s infinite ease-in-out alternate;
+            animation-delay: 5s;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Aurora Background -->
+    <div class="fixed inset-0 z-0 opacity-30 pointer-events-none overflow-hidden" aria-hidden="true">
+        <div class="blob-1 absolute -top-1/2 -left-1/4 w-[800px] h-[800px] bg-gradient-to-br from-indigo-600 to-transparent rounded-full filter blur-3xl"></div>
+        <div class="blob-2 absolute -bottom-1/2 -right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-sky-500 to-transparent rounded-full filter blur-3xl"></div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div id="app" class="relative z-10 min-h-screen">
+        <!-- Dynamic Content Injected Here -->
+    </div>
+
+    <script>
+        // --- CRASH PROTECTION ---
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            const appDiv = document.getElementById('app');
+            if (appDiv) {
+                appDiv.innerHTML = `
+                    <div style="padding: 2rem; color: #f87171; max-width: 800px; margin: 0 auto;">
+                        <h1 style="font-size: 2rem; margin-bottom: 1rem;">⚠️ JavaScript Error</h1>
+                        <p style="font-size: 1.2rem; margin-bottom: 1rem;">${msg}</p>
+                        <p style="font-family: monospace; background: #1e293b; padding: 1rem; border-radius: 0.5rem;">
+                            Error on line: ${lineNo}
+                        </p>
+                    </div>
+                `;
+            }
+            return false;
+        };
+
+        // ==========================================
+        // --- CONFIGURATION: EDIT YOUR DATA HERE ---
+        // ==========================================
+        
+        const personalData = {
+            name: "Ethan Chu",
+            role: "CSE Student",
+            contact: {
+                email: "goldaxootl@gmail.com",
+                location: "San Francisco, CA",
+                socials: {
+                    github: "#",
+                    linkedin: "#",
+                    twitter: "#"
+                }
+            },
+            hero: {
+                badge: "Full Stack Developer",
+                headingStart: "Building",
+                headingHighlight: "Digital Experiences",
+                headingEnd: "that matter.",
+                subtext: "I craft responsive, high-performance web applications using modern technologies like React, Tailwind CSS, and Node.js.",
+                codeSnippet: `const developer = {
+  name: 'Ethan Chu',
+  skills: [
+    'CSS'
+    'HTML'
+    'Python'
+  ],
+  hardWorker: true
+  happy: true,
+};`
+            },
+            about: {
+                paragraphs: [
+                    "My long term career goal is to become a game designer/developer who designs and creates games for people to enjoy. I plan to achieve this goal by taking classes as well as learning the skills needed by myself on the internet. I have chosen this career because I enjoy CAD and want to learn to code, so I want to use this to create games that people could enjoy." 
+                    ,"My strongest characteristics include creativity, self-motivation, and independence. I have strengthened these characteristics by writing short stories and doing things by myself, which can be really helpful in my career goal. Some of my major accomplishments in high school was going with the orchestra to many music competitions, which we did quite well in all of them. I have participated in orchestra, chess, and badminton. I have learned that I am good at motivating myself to complete tasks, managing my time, and working by myself."
+                    ,"Through my activities, I have developed good time management, self motivation, and problem solving abilities. Thank you for taking the time to read these two paragraphs to learn more about me, and I welcome you to explore the rest of my website."
+
+                ],
+                stats: [
+                    { value: "2+", label: "Years Exp." },
+                    { value: "11", label: "Projects" }
+                ]
+            },
+            resume: {
+                education: [
+                    {
+                        degree: "In Progress",
+                        school: "Emerald High School",
+                        period: "2024 - Current",
+                    }
+                ]
+            }
+        };
+
+        const projects = [
+            {
+                id: 'online-interviewer',
+                title: 'Online Interviewer',
+                description: 'A tool to help users practice for interviews. Features include voice-to-text input, answer tracking, data visualization of past attempts, and the ability to export sessions to a CSV file for review.',
+
+                imageUrl: './assets/interview.png',
+                videoUrl: './assets/interviewer.mp4',
+
+                tags: ['MIT App Inventor', 'Data Export'],
+                sourceUrl: 'https://github.com/example/online-interviewer',
+                sourceCode: `import React, { useState } from 'react';
+import useSpeechRecognition from './useSpeechRecognition';
+
+const InterviewForm = ({ question, onAnswerSubmit }) => {
+  const [answer, setAnswer] = useState('');
+  const { isListening, transcript, startListening, stopListening } = useSpeechRecognition();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAnswerSubmit(answer || transcript);
+    setAnswer('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>{question}</label>
+      <textarea value={answer || transcript} onChange={(e) => setAnswer(e.target.value)} />
+      <button type="button" onClick={isListening ? stopListening : startListening}>
+        {isListening ? 'Stop Speaking' : 'Speak Answer'}
+      </button>
+      <button type="submit">Next Question</button>
+    </form>
+  );
+};
+
+export default InterviewForm;`
+            },
+            {
+                id: 'triage-ai',
+                title: 'TriageAI',
+                description: 'An emergency reporting tool that uses generative AI to automatically analyze, rank, and prioritize incoming distress signals based on urgency, helping to bring order to chaos.',
+
+                imageUrl: './assets/triageAI.jpeg',
+                videoUrl: './assets/triage.mp4',
+
+                tags: ['Generative AI', 'Gemini API', 'Emergency Response'],
+                sourceUrl: 'https://github.com/example/triage-ai',
+                sourceCode: `import React, { useState } from 'react';
+
+// This is a conceptual example. In a real app, the API key
+// would be handled securely on a backend server.
+const TriageComponent = () => {
+  const [incident, setIncident] = useState('');
+  const [priority, setPriority] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const analyzeIncident = async (description) => {
+    // This function would exist on a secure backend.
+    // const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // const result = await ai.models.generateContent(...)
+    // For the frontend, we just simulate the API call.
+    console.log("Analyzing:", description);
+    return new Promise(resolve => setTimeout(() => resolve(Math.ceil(Math.random() * 5)), 1000));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const triagePriority = await analyzeIncident(incident);
+    setPriority(triagePriority);
+    setIsLoading(false);
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input 
+          type="text" 
+          value={incident} 
+          onChange={(e) => setIncident(e.target.value)}
+          placeholder="Report an incident..."
+        />
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Analyzing...' : 'Report'}
+        </button>
+      </form>
+      {priority && <p>Assigned Priority: {priority}</p>}
+    </div>
+  );
+};
+
+export default TriageComponent;`
+            },
+        ];
+
+        // ==========================================
+        // --- END CONFIGURATION --------------------
+        // ==========================================
+
+        // --- Router & Rendering ---
+
+        const appDiv = document.getElementById('app');
+
+        // Initialize Scroll Animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1, // Trigger when 10% of the element is visible
+                rootMargin: "0px 0px -50px 0px" 
+            });
+
+            const elements = document.querySelectorAll('.reveal');
+            if(elements.length > 0) {
+                 elements.forEach(el => observer.observe(el));
+            } else {
+                 console.warn("No .reveal elements found - content might be hidden or not rendered.");
+            }
+        }
+
+        function renderHomePage() {
+            let projectsHtml = '';
+            projects.forEach(project => {
+                // Use 'object-contain' for the vertical interview image to show it fully with a bevel.
+                // Use 'object-cover' for others to fill the frame.
+                const imgClass = project.id === 'online-interviewer' ? 'object-contain' : 'object-cover';
+
+                projectsHtml += `
+                    <div class="reveal bg-slate-800/50 backdrop-blur-md border border-slate-700 rounded-xl overflow-hidden hover:border-indigo-500/50 transition-colors group">
+                        <div class="aspect-video w-full bg-slate-900 overflow-hidden relative">
+                             <img 
+                                src="${project.imageUrl}" 
+                                alt="${project.title}" 
+                                class="w-full h-full ${imgClass} group-hover:scale-105 transition-transform duration-500"
+                                onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e293b/cbd5e1?text=Image+Not+Found';"
+                            >
+                        </div>
+                        <div class="p-6">
+                            <h2 class="text-2xl font-semibold text-white mb-2">${project.title}</h2>
+                            <p class="text-slate-400 mb-4 line-clamp-2">${project.description}</p>
+                            
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                ${project.tags ? project.tags.map(tag => `
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                                        ${tag}
+                                    </span>
+                                `).join('') : ''}
+                            </div>
+
+                            <div class="flex gap-3">
+                                <a href="#/demo/${project.id}" class="flex-1 text-center bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium transition-colors">
+                                    View Demo
+                                </a>
+                                <a href="#/source/${project.id}" class="flex-1 text-center bg-slate-700 hover:bg-slate-600 text-slate-200 py-2 rounded-lg font-medium transition-colors">
+                                    Source Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Generate Experience HTML
+            let experienceHtml = '';
+            if (personalData.resume && personalData.resume.experience) {
+                personalData.resume.experience.forEach(job => {
+                    experienceHtml += `
+                        <div class="relative">
+                            <span class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-indigo-500"></span>
+                            <h4 class="text-lg font-bold text-white">${job.role}</h4>
+                            <div class="text-slate-500 text-sm mb-2">${job.company} • ${job.period}</div>
+                            <p class="text-slate-400">${job.description}</p>
+                        </div>
+                    `;
+                });
+            }
+
+            // Generate Education HTML
+            let educationHtml = '';
+            if (personalData.resume && personalData.resume.education) {
+                personalData.resume.education.forEach(edu => {
+                    educationHtml += `
+                        <div class="relative">
+                            <span class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-slate-600"></span>
+                            <h4 class="text-lg font-bold text-white">${edu.degree}</h4>
+                            <div class="text-slate-500 text-sm mb-2">${edu.school} • ${edu.period}</div>
+                            <p class="text-slate-400">${edu.description}</p>
+                        </div>
+                    `;
+                });
+            }
+
+            return `
+                <div class="fade-enter">
+                    <!-- Navbar -->
+                    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50">
+                        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                            <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">
+                                Portfolio.
+                            </span>
+                            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                                <a href="#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
+                                <a href="#about" class="text-slate-300 hover:text-white transition-colors">About</a>
+                                <a href="#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a>
+                                <a href="#resume" class="text-slate-300 hover:text-white transition-colors">Resume</a>
+                                <a href="#contact" class="text-slate-300 hover:text-white transition-colors">Contact</a>
+                            </div>
+                            <!-- Mobile Menu Button (Simplified) -->
+                            <button class="md:hidden text-slate-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                            </button>
+                        </div>
+                    </nav>
+
+                    <!-- Hero Section -->
+                    <section id="home" class="min-h-screen flex items-center justify-center pt-16 relative">
+                        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div class="space-y-6 reveal">
+                                <div class="inline-block px-3 py-1 text-sm font-medium text-indigo-300 bg-indigo-500/10 rounded-full border border-indigo-500/20">
+                                    ${personalData.hero.badge}
+                                </div>
+                                <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight">
+                                    ${personalData.hero.headingStart} <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">${personalData.hero.headingHighlight}</span> ${personalData.hero.headingEnd}
+                                </h1>
+                                <p class="text-xl text-slate-400 max-w-lg">
+                                    ${personalData.hero.subtext}
+                                </p>
+                                <div class="flex flex-wrap gap-4 pt-4">
+                                    <a href="#projects" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all transform hover:-translate-y-1">
+                                        View Projects
+                                    </a>
+                                    <a href="#contact" class="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-lg font-medium transition-all hover:border-slate-600">
+                                        Contact Me
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Hero Visual -->
+                            <div class="relative hidden md:block reveal">
+                                <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-2xl blur-2xl opacity-20 transform rotate-6"></div>
+                                <div class="relative bg-slate-800 border border-slate-700 rounded-2xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                                    <pre class="font-mono text-sm text-indigo-300">${personalData.hero.codeSnippet}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- About Me Section -->
+                    <section id="about" class="py-20 bg-slate-900/50">
+                        <div class="max-w-4xl mx-auto px-6 reveal">
+                            <h2 class="text-3xl font-bold text-white mb-12 text-center">About Me</h2>
+                            <div class="space-y-6 text-center">
+                                <h3 class="text-2xl font-semibold text-indigo-400">Who am I?</h3>
+                                ${personalData.about.paragraphs.map(p => `<p class="text-slate-400 leading-relaxed text-lg">${p}</p>`).join('')}
+                                <div class="flex justify-center gap-6 pt-4">
+                                    ${personalData.about.stats.map(stat => `
+                                        <div class="p-6 bg-slate-800 rounded-lg border border-slate-700 min-w-[150px]">
+                                            <div class="text-4xl font-bold text-white mb-1">${stat.value}</div>
+                                            <div class="text-sm text-slate-500 uppercase tracking-wide">${stat.label}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Projects Section -->
+                    <section id="projects" class="py-20">
+                        <div class="max-w-7xl mx-auto px-6">
+                            <div class="text-center mb-16 reveal">
+                                <h2 class="text-3xl font-bold text-white mb-4">Featured Projects</h2>
+                                <p class="text-slate-400 max-w-2xl mx-auto">
+                                    Here are some of the projects I've worked on recently. Each one presented unique challenges and learning opportunities.
+                                </p>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                ${projectsHtml}
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Resume Section -->
+                    <section id="resume" class="py-20 bg-slate-900/50">
+                        <div class="max-w-4xl mx-auto px-6">
+                            <h2 class="text-3xl font-bold text-white mb-12 text-center reveal">Resume</h2>
+                            
+                            <!-- Experience -->
+                            <div class="mb-12 reveal">
+                                <h3 class="text-xl font-semibold text-indigo-400 mb-6 flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    Work Experience
+                                </h3>
+                                <div class="space-y-8 border-l-2 border-slate-700 ml-3 pl-8 relative">
+                                    ${experienceHtml}
+                                </div>
+                            </div>
+
+                            <!-- Education -->
+                            <div class="reveal">
+                                <h3 class="text-xl font-semibold text-indigo-400 mb-6 flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path></svg>
+                                    Education
+                                </h3>
+                                <div class="space-y-8 border-l-2 border-slate-700 ml-3 pl-8 relative">
+                                    ${educationHtml}
+                                </div>
+                            </div>
+                            
+                            <div class="mt-12 text-center reveal">
+                                <a href="#" class="inline-flex items-center px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg border border-slate-600 transition-colors">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    Download Full Resume
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Contact Section -->
+                    <section id="contact" class="py-20">
+                        <div class="max-w-7xl mx-auto px-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                <div class="reveal">
+                                    <h2 class="text-3xl font-bold text-white mb-6">Let's Work Together</h2>
+                                    <p class="text-slate-400 mb-8 leading-relaxed">
+                                        I'm currently available for freelance work or full-time opportunities. If you have a project that needs some creative touch, I'd love to hear about it.
+                                    </p>
+                                    
+                                    <div class="space-y-4">
+                                        <div class="flex items-center text-slate-300">
+                                            <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center mr-4 border border-slate-700">
+                                                <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                            </div>
+                                            ${personalData.contact.email}
+                                        </div>
+                                        <div class="flex items-center text-slate-300">
+                                            <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center mr-4 border border-slate-700">
+                                                <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                            </div>
+                                            ${personalData.contact.location}
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-4 mt-8">
+                                        <a href="${personalData.contact.socials.github}" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-indigo-600 flex items-center justify-center transition-colors text-white border border-slate-700 hover:border-indigo-500">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                        </a>
+                                        <a href="${personalData.contact.socials.linkedin}" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-indigo-600 flex items-center justify-center transition-colors text-white border border-slate-700 hover:border-indigo-500">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                        </a>
+                                        <a href="${personalData.contact.socials.twitter}" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-indigo-600 flex items-center justify-center transition-colors text-white border border-slate-700 hover:border-indigo-500">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 reveal">
+                                    <form class="space-y-6">
+                                        <div>
+                                            <label class="block text-sm font-medium text-slate-400 mb-2">Name</label>
+                                            <input type="text" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white placeholder-slate-600" placeholder="John Doe">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-slate-400 mb-2">Email</label>
+                                            <input type="email" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white placeholder-slate-600" placeholder="john@example.com">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-slate-400 mb-2">Message</label>
+                                            <textarea rows="4" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white placeholder-slate-600" placeholder="Tell me about your project..."></textarea>
+                                        </div>
+                                        <button type="button" class="w-full py-4 bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 text-white font-bold rounded-lg transition-all transform hover:-translate-y-1">
+                                            Send Message
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Footer -->
+                    <footer class="py-8 text-center text-slate-500 text-sm border-t border-slate-800">
+                        <p>&copy; 2024 Personal Portfolio. Built with HTML, Tailwind & Love.</p>
+                    </footer>
+                </div>
+            `;
+        }
+
+        function renderDemoPage(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return renderHomePage();
+
+            return `
+                <div class="fade-enter max-w-7xl mx-auto p-6 md:p-12">
+                     <nav class="mb-8">
+                        <a href="#/" class="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                            Back to Home
+                        </a>
+                    </nav>
+
+                    <div class="max-w-4xl mx-auto">
+                        <h1 class="text-4xl font-bold text-white mb-4">${project.title}</h1>
+                        
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            ${project.tags ? project.tags.map(tag => `
+                                <span class="px-3 py-1 text-sm font-medium rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                                    ${tag}
+                                </span>
+                            `).join('') : ''}
+                        </div>
+
+                        <div class="bg-slate-800/50 rounded-xl overflow-hidden border border-slate-700 mb-8">
+                            ${project.videoUrl ? `
+                                <video class="w-full aspect-video" controls poster="${project.imageUrl}">
+                                    <source src="${project.videoUrl}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            ` : `
+                                <div class="w-full aspect-video bg-slate-900 flex items-center justify-center text-slate-500">Video not found</div>
+                            `}
+                        </div>
+
+                        <div class="prose prose-invert max-w-none">
+                            <h3 class="text-2xl font-semibold text-white mb-3">About this Project</h3>
+                            <p class="text-slate-300 text-lg leading-relaxed mb-8">${project.description}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSourcePage(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return renderHomePage();
+
+            // Escape HTML for display in code block
+            const escapedCode = project.sourceCode
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+            return `
+                <div class="fade-enter max-w-7xl mx-auto p-6 md:p-12">
+                    <div class="flex items-center justify-between mb-6">
+                        <a href="#/" class="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                            Back to Home
+                        </a>
+                         <span class="text-slate-400 font-mono text-sm">${project.title} / Source</span>
+                    </div>
+
+                    <div class="bg-[#030712] rounded-lg border border-slate-700 overflow-hidden shadow-2xl">
+                        <div class="flex items-center px-4 py-2 border-b border-slate-800 bg-slate-900/50">
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="ml-4 text-xs text-slate-500 font-mono">App.js</div>
+                        </div>
+                        <pre class="code-block"><code class="language-jsx">${escapedCode}</code></pre>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Simple Hash Router
+        function router() {
+            // Scroll to top on route change
+            window.scrollTo(0, 0);
+
+            const hash = window.location.hash;
+            
+            // Demo Route: #/demo/project-id
+            const demoMatch = hash.match(/^#\/demo\/(.+)$/);
+            if (demoMatch) {
+                appDiv.innerHTML = renderDemoPage(demoMatch[1]);
+                return;
+            }
+
+            // Source Route: #/source/project-id
+            const sourceMatch = hash.match(/^#\/source\/(.+)$/);
+            if (sourceMatch) {
+                appDiv.innerHTML = renderSourcePage(sourceMatch[1]);
+                return;
+            }
+
+            // Default: Home
+            appDiv.innerHTML = renderHomePage();
+            
+            // Initialize animations after content injection (short delay to ensure DOM is ready)
+            setTimeout(initScrollAnimations, 50);
+        }
+
+        // Initialize
+        window.addEventListener('hashchange', router);
+        window.addEventListener('load', router);
+
+    </script>
+</body>
+</html>
